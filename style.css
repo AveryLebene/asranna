@@ -1,0 +1,76 @@
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+html,
+body {
+  min-width: 380px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#home {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  height: 75vh;
+}
+
+.navbar {
+  justify-content: center;
+  border-bottom: 1px solid #e7e7e7;
+  /* box-shadow: 0.5px 2px #e7e7e7; */
+}
+
+.navbar a {
+  font-weight: 700;
+  font-size: 30px;
+}
+
+.container {
+  height: 75vh;
+}
+
+.heading {
+  text-align: center;
+  padding: 0 15%;
+}
+
+.heading button {
+  border-radius: 25px;
+  margin-top: 20px;
+  padding: 10px 55px;
+}
+
+.heading p {
+  margin-top: 50px;
+
+  font-size: 20px;
+  letter-spacing: 0.5px;
+}
+
+.heading p a {
+  text-decoration: underline;
+  color: blue;
+  /* cursor: pointer; */
+}
+
+.heading h2 {
+  font-weight: 700;
+  letter-spacing: 2px;
+  line-height: 40px;
+  margin-bottom: 7%;
+}
+
+.footer {
+  border-top: 1px solid #e7e7e7;
+  /* box-shadow: 0.5px 2px #e7e7e7; */
+}
+
+.socials {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 40px;
+  gap: 20px;
+  padding-top: 10px;
+}
