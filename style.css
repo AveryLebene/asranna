@@ -19,17 +19,17 @@ body {
 .navbar {
   justify-content: center;
   border-bottom: 1px solid #e7e7e7;
-  /* box-shadow: 0.5px 2px #e7e7e7; */
+  box-shadow: 0 3px #e7e7e7;
 }
 
 .navbar a {
   font-weight: 700;
   font-size: 30px;
 }
-
+/*
 .container {
   height: 75vh;
-}
+} */
 
 .heading {
   text-align: center;
@@ -38,7 +38,7 @@ body {
 
 .heading button {
   border-radius: 25px;
-  margin-top: 20px;
+  margin-top: 50px;
   padding: 10px 55px;
 }
 
@@ -59,7 +59,6 @@ body {
   font-weight: 700;
   letter-spacing: 2px;
   line-height: 40px;
-  margin-bottom: 7%;
 }
 
 .footer {
@@ -73,4 +72,52 @@ body {
   padding-right: 40px;
   gap: 20px;
   padding-top: 10px;
+}
+
+.new-event {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 50px;
+  padding: 10px 20px;
+}
+
+input {
+  border: 1px solid #d2d2d2;
+  border-radius: 12px;
+  padding: 10px;
+  /* background-color: #d2d2d2; */
+  margin-bottom: 30px;
+}
+
+/* label {
+  margin: 10px;
+} */
+
+select {
+  margin-top: 20px;
+}
+
+.new-event button {
+  background-color: #3d82fe;
+  border: #3d82fe;
+  border-radius: 12px;
+  margin-top: 30px;
+  padding: 10px;
+}
+
+input::placeholder {
+  color: #000;
+}
+
+@media only screen and (min-width: 1024px) {
+  .time input {
+    width: 250px;
+  }
+
+  .time {
+    display: flex;
+    justify-content: space-between;
+
+    width: 100%;
+  }
 }

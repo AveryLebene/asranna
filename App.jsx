@@ -4,18 +4,18 @@ import { Navbar } from "react-bootstrap";
 
 import Home from "./src/components/Home";
 import Footer from "./src/components/Footer";
-import AddDate from "./src/components/AddNewDate";
+
 import Gifts from "./src/components/Gifts";
 
 const App = () => {
   return (
     <BrowserRouter>
       <Navbar className="navbar">
-        <Navbar.Brand href="#home">asranna</Navbar.Brand>
+        <Navbar.Brand href="/">asranna</Navbar.Brand>
       </Navbar>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/add-date" element={<AddDate />} />
+
         <Route path="/gifts" element={<Gifts />} />
       </Routes>
       <Footer />

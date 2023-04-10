@@ -1,25 +1,34 @@
 import { Button } from "react-bootstrap";
+import { useState } from "react";
 
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
+import MyModal from "./Modal";
 
 const Home = () => {
+  const [modalShow, setModalShow] = useState(false);
+
   return (
     <div>
       <div id="home">
         <div className="heading">
           <h2>
             Don&apos;t miss holidays , events and birthdays of your loved ones
-            anymore. Use <span>asranna</span>
+            anymore. Add events of asranna, download file and easily sync with
+            your calender or share with your team.
           </h2>
-          <Link to="/add-date">
-            <Button className="button" size="lg">
-              Create Event
-            </Button>
-          </Link>
 
-          <p>
-            Receive gift ideas for special occasions and Oh no! No time to
-            arrange a gift? We got you{" "}
+          <Button
+            className="button"
+            size="lg"
+            onClick={() => setModalShow(true)}
+          >
+            Create Event
+          </Button>
+          <MyModal show={modalShow} onHide={() => setModalShow(false)} />
+
+          {/* <p>
+            Receive gift ideas for special occasions. No time to arrange a gift?
+            We got you{" "}
             <span>
               {" "}
               <Link to="/gifts">
@@ -27,7 +36,7 @@ const Home = () => {
               </Link>
               .
             </span>
-          </p>
+          </p> */}
         </div>
       </div>
     </div>
