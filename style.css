@@ -132,6 +132,14 @@ input::placeholder {
   color: #000;
 }
 
+.added-events {
+  margin-top: 20px;
+}
+
+.toggle-btn {
+  /* color: #000 !important; */
+}
+
 @media only screen and (min-width: 768px) {
   #home {
     height: 70vh;
