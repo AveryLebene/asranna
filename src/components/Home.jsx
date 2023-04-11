@@ -1,4 +1,5 @@
 import { Button } from "react-bootstrap";
+import { Navbar } from "react-bootstrap";
 import { useState } from "react";
 import Footer from "./Footer";
 
@@ -9,6 +10,9 @@ const Home = () => {
 
   return (
     <>
+      <Navbar className="navbar fixed-top bg-white">
+        <Navbar.Brand href="/">asranna</Navbar.Brand>
+      </Navbar>
       <div>
         <div id="home">
           <div className="heading">

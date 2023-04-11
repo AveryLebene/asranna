@@ -16,51 +16,38 @@ function MyModal(props) {
   const [title, setTitle] = useState("");
   const [location, setLocation] = useState("");
   const [events, setEvents] = useState([]);
-
-  //   const handleSubmit = (e) => {
-  //     e.preventDefault();
-
-  //     const newEvent = {
-  //       title,
-  //       start: moment(start, "YYYYMMDDTHHmmss").toArray().slice(0, 3),
-  //       end: moment(end, "YYYYMMDDTHHmmss").toArray().slice(0, 3),
-  //       description,
-  //       location,
-  //     };
-
-  // createEvent(event, (error, value) => {
-  //   if (error) {
-  //     console.log(error);
-  //   } else {
-  //     const blob = new Blob([value], { type: "text/calendar;charset=utf-8" });
-  //     // console.log(blob);
-  //     FileSaver.saveAs(blob, "asranna.ics");
-  //     console.log("filesaved");
-  //   }
-  // });
-
-  //     setEvents([...events, newEvent]);
-  //     setTitle("");
-  //     setStart("");
-  //     setEnd("");
-  //     setDescription("");
-  //     setLocation("");
-  //     console.log(events);
-  //   };
+  const [showEvents, setShowEvents] = useState(false);
 
   //   const timeString = "19740108T054400";
   //   const formattedTime = moment(timeString, "YYYYMMDDTHHmmss")
   //     .toArray()
-  //     .slice(0, 3);
+  //     .slice(0, 3)
+
+  //   console.log(formattedTime);
+
+  //   const timeString = "19740108T054400";
+  //   const date = moment(timeString, "YYYYMMDDTHHmmss");
+  //   const month = date.get("month") + 1;
+  //   const formattedTime = [date.get("year"), month, date.get("date")];
 
   //   console.log(formattedTime);
 
   const handleAddEvent = (e) => {
+    let startDate = moment(start, "YYYYMMDDTHHmmss");
+    let startMonth = startDate.get("month") + 1;
+    let startArray = [startDate.get("year"), startMonth, startDate.get("date")];
+
+    let endDate = moment(end, "YYYYMMDDTHHmmss");
+    let endMonth = endDate.get("month") + 1;
+    let endArray = [endDate.get("year"), endMonth, endDate.get("date")];
+
     e.preventDefault();
     const newEvent = {
       title,
-      start: moment(String(start), "YYYYMMDDTHHmmss").toArray().slice(0, 3),
-      end: moment(String(end), "YYYYMMDDTHHmmss").toArray().slice(0, 3),
+      //   start: moment(String(start), "YYYYMMDDTHHmmss").toArray().slice(0, 3),
+      //   end: moment(String(end), "YYYYMMDDTHHmmss").toArray().slice(0, 3),
+      start: startArray,
+      end: endArray,
       description,
       location,
     };
@@ -86,8 +73,9 @@ function MyModal(props) {
       console.log(error);
     } else {
       const blob = new Blob([value], { type: "text/calendar;charset=utf-8" });
-      FileSaver.saveAs(blob, "events.ics");
+      FileSaver.saveAs(blob, "asranna.ics");
       console.log("filesaved");
+      setEvents([]);
     }
     console.log("val", value);
   };
@@ -112,6 +100,7 @@ function MyModal(props) {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Event Title"
+            required
           />
           <datalist id="events">
             <option value="Birthday">Birthday</option>
@@ -131,6 +120,7 @@ function MyModal(props) {
                 value={start}
                 onChange={(e) => setStart(e.target.value)}
                 placeholder="Start Time"
+                required
               />
             </div>
             <div>
@@ -142,6 +132,7 @@ function MyModal(props) {
                 value={end}
                 onChange={(e) => setEnd(e.target.value)}
                 placeholder="End Date and Time"
+                required
               />
             </div>
           </div>
@@ -169,10 +160,39 @@ function MyModal(props) {
               <FiDownload /> Download ics
             </button>
           </div>
+          <button onClick={() => setShowEvents(!showEvents)}>
+            {showEvents ? "Hide Added events" : "View all Added events"}
+          </button>
+
+          {showEvents && (
+            <div>
+              {events < 1 ? <h3> No events added</h3> : <h3>Events</h3>}
+              {/* <h2>Events</h2> */}
+              <ul>
+                {events.map((event, index) => (
+                  <li key={index}>
+                    {event.title} - {event.start.join("/")} to{" "}
+                    {event.end.join("/")}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </form>
       </Modal.Body>
       <Modal.Footer>
-        {/* <Button onClick={props.onHide}>Close</Button> */}
+        {/* <Button onClick={props.onHide}>Close</Button>
+         */}
+        {/* {events.map((event, index) => (
+          <div key={index}>
+            <h3>{event.title}</h3>
+            <p>Start: {event.start.toString()}</p>
+            <p>End: {event.end.toString()}</p>
+            <p>Description: {event.description}</p>
+            <p>Location: {event.location}</p>
+            <hr />
+          </div>
+        ))} */}
       </Modal.Footer>
     </Modal>
   );
