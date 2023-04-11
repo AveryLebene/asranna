@@ -1,9 +1,12 @@
-import Button from "react-bootstrap/Button";
+// import ics from "ics";
+// import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { IoAddCircle } from "react-icons/io5";
-import { useState } from "react";
+import { IoAddCircleOutline } from "react-icons/io5";
+import { FiDownload } from "react-icons/fi";
+import { useEffect, useState } from "react";
 import FileSaver from "file-saver";
-import { createEvent } from "ics";
+import { createEvents } from "ics";
+
 import moment from "moment";
 
 function MyModal(props) {
@@ -12,36 +15,81 @@ function MyModal(props) {
   const [description, setDescription] = useState("");
   const [title, setTitle] = useState("");
   const [location, setLocation] = useState("");
-  //   const [type, setType] = useState("");
-  //   const [date, setDate] = useState("");
+  const [events, setEvents] = useState([]);
 
-  //   const startTime = "19740108T054400";
-  //   const formattedTime = moment(startTime, "YYYYMMDDTHHmmss")
+  //   const handleSubmit = (e) => {
+  //     e.preventDefault();
+
+  //     const newEvent = {
+  //       title,
+  //       start: moment(start, "YYYYMMDDTHHmmss").toArray().slice(0, 3),
+  //       end: moment(end, "YYYYMMDDTHHmmss").toArray().slice(0, 3),
+  //       description,
+  //       location,
+  //     };
+
+  // createEvent(event, (error, value) => {
+  //   if (error) {
+  //     console.log(error);
+  //   } else {
+  //     const blob = new Blob([value], { type: "text/calendar;charset=utf-8" });
+  //     // console.log(blob);
+  //     FileSaver.saveAs(blob, "asranna.ics");
+  //     console.log("filesaved");
+  //   }
+  // });
+
+  //     setEvents([...events, newEvent]);
+  //     setTitle("");
+  //     setStart("");
+  //     setEnd("");
+  //     setDescription("");
+  //     setLocation("");
+  //     console.log(events);
+  //   };
+
+  //   const timeString = "19740108T054400";
+  //   const formattedTime = moment(timeString, "YYYYMMDDTHHmmss")
   //     .toArray()
   //     .slice(0, 3);
 
   //   console.log(formattedTime);
-  const handleSubmit = (e) => {
-    e.preventDefault();
 
-    const event = {
+  const handleAddEvent = (e) => {
+    e.preventDefault();
+    const newEvent = {
       title,
-      start: moment(start, "YYYYMMDDTHHmmss").toArray().slice(0, 3),
-      end: moment(end, "YYYYMMDDTHHmmss").toArray().slice(0, 3),
+      start: moment(String(start), "YYYYMMDDTHHmmss").toArray().slice(0, 3),
+      end: moment(String(end), "YYYYMMDDTHHmmss").toArray().slice(0, 3),
       description,
       location,
     };
+    setEvents([...events, newEvent]);
+    // console.log("events", events);
+    console.log("added");
 
-    createEvent(event, (error, value) => {
-      if (error) {
-        console.log(error);
-      } else {
-        const blob = new Blob([value], { type: "text/calendar;charset=utf-8" });
-        // console.log(blob);
-        FileSaver.saveAs(blob, "asranna.ics");
-        console.log("filesaved");
-      }
-    });
+    setTitle("");
+    setStart("");
+    setEnd("");
+    setDescription("");
+    setLocation("");
+  };
+
+  useEffect(() => {
+    console.log(events);
+  }, [events]);
+
+  const handleDownload = () => {
+    const { error, value } = createEvents(events);
+    console.log("val=", value);
+    if (error) {
+      console.log(error);
+    } else {
+      const blob = new Blob([value], { type: "text/calendar;charset=utf-8" });
+      FileSaver.saveAs(blob, "events.ics");
+      console.log("filesaved");
+    }
+    console.log("val", value);
   };
 
   return (
@@ -55,7 +103,7 @@ function MyModal(props) {
         <Modal.Title id="contained-modal-title-vcenter"></Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <form className="new-event" onSubmit={handleSubmit}>
+        <form className="new-event" onSubmit={handleAddEvent}>
           <input
             type="text"
             id="title"
@@ -86,7 +134,7 @@ function MyModal(props) {
               />
             </div>
             <div>
-              <label htmlFor="start">Start Date and Time</label>
+              <label htmlFor="start">End Date and Time</label>
               <input
                 type="datetime-local"
                 id="end"
@@ -113,15 +161,18 @@ function MyModal(props) {
             value={location}
             onChange={(e) => setLocation(e.target.value)}
           />
-
-          <button type="submit">Download</button>
-          {/* <button>
-            <IoAddCircle /> Add new Event
-          </button> */}
+          <div className="btns">
+            <button type="submit">
+              <IoAddCircleOutline /> Add Event
+            </button>
+            <button type="button" onClick={handleDownload}>
+              <FiDownload /> Download ics
+            </button>
+          </div>
         </form>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={props.onHide}>Close</Button>
+        {/* <Button onClick={props.onHide}>Close</Button> */}
       </Modal.Footer>
     </Modal>
   );

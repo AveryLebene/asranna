@@ -13,11 +13,11 @@ const Footer = () => {
           <AiFillLinkedin className="" size={24} />
         </a>
       </div>
-      <p className="text-center pt-2">
+      <p className="text-center ">
         {" "}
         <span> © {year} </span>
       </p>
-      <p className="font-thin pt-2 text-center">A PROJECT BY AVERY</p>
+      <p className="font-thin text-center">A PROJECT BY AVERY</p>
     </div>
   );
 };
