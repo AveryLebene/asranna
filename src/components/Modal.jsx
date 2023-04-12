@@ -86,11 +86,6 @@ function MyModal(props) {
 
   const [updatedEventsArray, setUpdatedEventsArray] = useState([]);
 
-  //   const formattedDate = moment("2023-02-02T04:44").format("MMM, DD, YYYY");
-  //   const formattedTime = moment("2023-02-02T04:44").format("h:mma");
-  //   console.log("formattedDate=", formattedDate);
-  //   console.log("formattedTime=", formattedTime);
-
   const clearInputs = () => {
     setTitle("");
     setStart("");
@@ -312,100 +307,105 @@ function MyModal(props) {
                     <FiDownload /> Download ics
                   </button>
                 ) : (
-                  <button>Add events To Download</button>
+                  <button>Add To Download</button>
                 )}
               </div>
             </form>
           </div>
-          <button onClick={() => setShowEvents(!showEvents)}>
-            {showEvents ? "Hide Events" : "View all Events"}
-          </button>
 
-          {showEvents && (
-            <div className="added-events">
-              {events < 1 ? (
-                <h4> No events added</h4>
-              ) : (
-                <Table striped>
-                  <thead>
-                    <tr>
-                      <th>Event Title </th>
-                      <th>Event Date</th>
-                      <th>Start Time</th>
-                      {/* <th>Location</th> */}
-                      <th>Edit</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {(updatedEventsArray.length > 0
-                      ? updatedEventsArray
-                      : events
-                    ).map((event, id) => (
-                      <tr key={id}>
-                        <td> {event.title}</td>
-                        <td>{formattedDate(event.start)}</td>
-                        {/* <td>{event.start} </td> */}
-                        <td>{formattedTime(event.start)}</td>
-                        {/* <td>{event.location}</td> */}
-                        <td>
-                          <Dropdown>
-                            <Dropdown.Toggle
-                              className="toggle-btn"
-                              id="dropdown-basic"
-                              variant="outline-none"
-                              size="sm"
-                            >
-                              <IoSettingsOutline color="#000" />
-                            </Dropdown.Toggle>
-
-                            <Dropdown.Menu>
-                              <Dropdown.Item
-                                onClick={() => {
-                                  setEditEvent(event);
-
-                                  handleEditClick();
-                                }}
-                              >
-                                Edit
-                              </Dropdown.Item>
-
-                              <Dropdown.Item
-                                data-id={event.id}
-                                onClick={(e) => handleDeleteEvent(e)}
-                              >
-                                Delete
-                              </Dropdown.Item>
-                            </Dropdown.Menu>
-                          </Dropdown>
-                          <Overlay
-                            //   show={showPop}
-                            //   target={target}
-                            placement="top"
-                            container={popRef}
-                            containerPadding={20}
-                          >
-                            <Popover id="popover-contained">
-                              <Popover.Header as="h3">
-                                Are you sure you want to delete this event?
-                              </Popover.Header>
-                              <Popover.Body>
-                                <p>No go back</p>
-                                <p>Yes delete</p>
-                              </Popover.Body>
-                            </Popover>
-                          </Overlay>
-                        </td>
+          <div className="events-table">
+            {showEvents && (
+              <div className="added-events">
+                {events < 1 ? (
+                  <h4> No events added</h4>
+                ) : (
+                  <Table striped>
+                    <thead>
+                      <tr>
+                        <th>Event Title </th>
+                        <th>Event Date</th>
+                        <th>Start Time</th>
+                        {/* <th>Location</th> */}
+                        <th>Edit</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </Table>
-              )}
-            </div>
-          )}
+                    </thead>
+                    <tbody>
+                      {(updatedEventsArray.length > 0
+                        ? updatedEventsArray
+                        : events
+                      ).map((event, id) => (
+                        <tr key={id}>
+                          <td> {event.title}</td>
+                          <td>{formattedDate(event.start)}</td>
+                          {/* <td>{event.start} </td> */}
+                          <td>{formattedTime(event.start)}</td>
+                          {/* <td>{event.location}</td> */}
+                          <td>
+                            <Dropdown>
+                              <Dropdown.Toggle
+                                className="toggle-btn"
+                                id="dropdown-basic"
+                                variant="outline-none"
+                                size="sm"
+                              >
+                                <IoSettingsOutline color="#000" />
+                              </Dropdown.Toggle>
+
+                              <Dropdown.Menu>
+                                <Dropdown.Item
+                                  onClick={() => {
+                                    setEditEvent(event);
+
+                                    handleEditClick();
+                                  }}
+                                >
+                                  Edit
+                                </Dropdown.Item>
+
+                                <Dropdown.Item
+                                  data-id={event.id}
+                                  onClick={(e) => handleDeleteEvent(e)}
+                                >
+                                  Delete
+                                </Dropdown.Item>
+                              </Dropdown.Menu>
+                            </Dropdown>
+                            <Overlay
+                              //   show={showPop}
+                              //   target={target}
+                              placement="top"
+                              container={popRef}
+                              containerPadding={20}
+                            >
+                              <Popover id="popover-contained">
+                                <Popover.Header as="h3">
+                                  Are you sure you want to delete this event?
+                                </Popover.Header>
+                                <Popover.Body>
+                                  <p>No go back</p>
+                                  <p>Yes delete</p>
+                                </Popover.Body>
+                              </Popover>
+                            </Overlay>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </Table>
+                )}
+              </div>
+            )}
+          </div>
         </Modal.Body>
         <Modal.Footer>
           {/* <Button onClick={props.onHide}>Close</Button>
            */}
+          <button
+            onClick={() => setShowEvents(!showEvents)}
+            className="showtable-btn"
+          >
+            {showEvents ? "Hide Events" : "View all Events"}
+          </button>
         </Modal.Footer>
       </Modal>
     </EventContext.Provider>
