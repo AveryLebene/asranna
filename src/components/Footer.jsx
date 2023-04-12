@@ -1,5 +1,5 @@
 import React from "react";
-import year from "./date";
+import year from "./helpers/date";
 import { AiFillGithub, AiFillLinkedin } from "react-icons/ai";
 
 const Footer = () => {
