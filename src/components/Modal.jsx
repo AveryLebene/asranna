@@ -1,10 +1,8 @@
-import { useEffect, useState, useRef, useReducer, createContext } from "react";
+import { useState, useRef, useReducer, createContext } from "react";
 
 import { createEvents } from "ics";
 import FileSaver from "file-saver";
 import { v4 as uuidv4 } from "uuid";
-
-// import moment from "moment";
 
 import { IoAddCircleOutline } from "react-icons/io5";
 import { IoSettingsOutline } from "react-icons/io5";
@@ -12,8 +10,6 @@ import { FiDownload } from "react-icons/fi";
 import Modal from "react-bootstrap/Modal";
 import Table from "react-bootstrap/Table";
 import Dropdown from "react-bootstrap/Dropdown";
-import Popover from "react-bootstrap/Popover";
-import Overlay from "react-bootstrap/Overlay";
 
 import {
   formattedEvents,
@@ -21,53 +17,49 @@ import {
   formattedTime,
 } from "./helpers/DateFormats";
 
-// import { formatDate, formatTime } from "./helpers/dateFormats";
-
 const EventContext = createContext();
 
 const initialState = {
   events: [],
-  showModal: false,
-  editEvent: null,
 };
 
 const ADD_EVENT = "ADD_EVENT";
 const DELETE_EVENT = "DELETE_EVENT";
 const EDIT_EVENT = "EDIT_EVENT";
-const SET_SHOW_MODAL = "SET_SHOW_MODAL";
-const SET_EDIT_EVENT = "SET_EDIT_EVENT";
 
 function reducer(state, action) {
   switch (action.type) {
-    case ADD_EVENT:
+    case ADD_EVENT: {
+      const newEvent = action.payload;
+      const updatedEvents = [...state.events, newEvent];
       return {
         ...state,
-        events: [...state.events, action.payload],
+        events: updatedEvents,
       };
-    case DELETE_EVENT:
-      console.log("states=", state.events);
-      console.log("payload=", action.payload);
+    }
+
+    case EDIT_EVENT: {
+      const updatedEvent = action.payload;
+      const updatedEvents = state.events.map((event) =>
+        event.id === updatedEvent.id ? updatedEvent : event
+      );
       return {
         ...state,
-        events: state.events.filter((id) => id !== action.payload),
+        events: updatedEvents,
       };
-    case EDIT_EVENT:
+    }
+
+    case DELETE_EVENT: {
+      const deletedEvent = action.payload;
+      const updatedEvents = state.events.filter(
+        (event) => event.id !== deletedEvent.id
+      );
       return {
         ...state,
-        events: state.events.map((event) =>
-          event.id === action.payload.id ? action.payload : event
-        ),
+        events: updatedEvents,
       };
-    case SET_SHOW_MODAL:
-      return {
-        ...state,
-        showModal: action.payload,
-      };
-    case SET_EDIT_EVENT:
-      return {
-        ...state,
-        editEvent: action.payload,
-      };
+    }
+
     default:
       throw new Error(`Invalid action type: ${action.type}`);
   }
@@ -80,13 +72,12 @@ function MyModal(props) {
   const [description, setDescription] = useState("");
   const [title, setTitle] = useState("");
   const [location, setLocation] = useState("");
-  const [events, setEvents] = useState([]);
   const [showEvents, setShowEvents] = useState(false);
+
   const [editEvent, setEditEvent] = useState("");
 
-  const [updatedEventsArray, setUpdatedEventsArray] = useState([]);
-
   const clearInputs = () => {
+    setEditEvent(null);
     setTitle("");
     setStart("");
     setEnd("");
@@ -94,11 +85,9 @@ function MyModal(props) {
     setLocation("");
   };
 
-  //   const [showPop, setShowPop] = useState(false);
-  //   const [target, setTarget] = useState(null);
-
-  const popRef = useRef(null);
   const formRef = useRef(null);
+
+  //   adding events
 
   const handleAddEvent = (e) => {
     e.preventDefault();
@@ -110,86 +99,46 @@ function MyModal(props) {
       description,
       location,
     };
-
-    setEvents((prevEvents) => {
-      const updatedEvents = [...prevEvents, newEvent];
-      console.log("events=", updatedEvents);
-      setUpdatedEventsArray(updatedEvents);
-      return updatedEvents;
-    });
+    dispatch({ type: ADD_EVENT, payload: newEvent });
     clearInputs();
   };
-
-  useEffect(() => {
-    console.log(updatedEventsArray);
-  }, [updatedEventsArray]);
 
   const handleEditEvent = (e) => {
     e.preventDefault();
 
-    let newEvents = events;
-
-    if (editEvent) {
-      newEvents = events.map((event) => {
-        if (event.id === editEvent.id) {
-          return editEvent;
-        } else {
-          return event;
-        }
-      });
-      console.log("updatedEvents=", newEvents);
-    }
-    setUpdatedEventsArray(newEvents);
-
-    dispatch({ type: EDIT_EVENT, payload: newEvents });
-    setEvents(newEvents);
-    setEditEvent(null);
+    dispatch({ type: EDIT_EVENT, payload: editEvent });
     clearInputs();
   };
 
-  const handleDeleteEvent = (event) => {
-    let eventId = "";
-    eventId = event.target.dataset.id;
-    console.log("id=del=", eventId);
-    // const eventDel = id.target.dataset;
-    dispatch({ type: DELETE_EVENT, payload: eventId });
+  const handleDeleteEvent = (e) => {
+    const eventId = e.target.id;
+
+    const updatedEvents = state.events;
+    const eventIndex = updatedEvents.findIndex((event) => event.id === eventId);
+    updatedEvents.splice(eventIndex, 1);
+    dispatch({ type: DELETE_EVENT, payload: updatedEvents });
   };
 
   const handleDownload = async () => {
-    const formatted = formattedEvents(events);
-    setEvents(formatted);
-  };
+    const formatted = formattedEvents(state.events);
 
-  useEffect(() => {
-    if (events.length > 0) {
-      console.log("formadrr=", events);
-      const { error, value } = createEvents(events);
-      console.log("val=", value);
+    if (state.events.length > 0) {
+      const { error, value } = createEvents(formatted);
+
       if (error) {
         console.log(error);
       } else {
         const blob = new Blob([value], { type: "text/calendar;charset=utf-8" });
         FileSaver.saveAs(blob, "asranna.ics");
-        console.log("filesaved");
-        setEvents([]);
       }
-      console.log("val", value);
+      state.events = [];
+      console.log("state.events=", state.events);
     }
-  }, [events]);
+  };
 
   function handleEditClick() {
     formRef.current.focus();
   }
-
-  //   const deleteClick = (event) => {
-  //     setShowPop(!showPop);
-  //     setTarget(event.target);
-  //   };
-
-  //   const dateArr = [2000, 11, 24, 19, 49];
-  // const date = new Date(...dateArr);
-  //   const formattedDate = formatDateBack(dateArr);
-  //   console.log(formattedDate);
 
   return (
     <EventContext.Provider value={{ state, dispatch }}>
@@ -203,7 +152,7 @@ function MyModal(props) {
           <Modal.Title id="contained-modal-title-vcenter"></Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div ref={popRef}>
+          <div>
             <form
               className="new-event"
               onSubmit={editEvent ? handleEditEvent : handleAddEvent}
@@ -302,7 +251,7 @@ function MyModal(props) {
                     <IoAddCircleOutline /> Add Event
                   </button>
                 )}
-                {events && events.length > 0 ? (
+                {state.events && state.events.length > 0 ? (
                   <button type="button" onClick={handleDownload}>
                     <FiDownload /> Download ics
                   </button>
@@ -316,7 +265,7 @@ function MyModal(props) {
           <div className="events-table">
             {showEvents && (
               <div className="added-events">
-                {events < 1 ? (
+                {state.events < 1 ? (
                   <h4> No events added</h4>
                 ) : (
                   <Table striped>
@@ -330,16 +279,13 @@ function MyModal(props) {
                       </tr>
                     </thead>
                     <tbody>
-                      {(updatedEventsArray.length > 0
-                        ? updatedEventsArray
-                        : events
-                      ).map((event, id) => (
+                      {state.events.map((event, id) => (
                         <tr key={id}>
                           <td> {event.title}</td>
                           <td>{formattedDate(event.start)}</td>
-                          {/* <td>{event.start} </td> */}
+
                           <td>{formattedTime(event.start)}</td>
-                          {/* <td>{event.location}</td> */}
+
                           <td>
                             <Dropdown>
                               <Dropdown.Toggle
@@ -363,30 +309,13 @@ function MyModal(props) {
                                 </Dropdown.Item>
 
                                 <Dropdown.Item
-                                  data-id={event.id}
+                                  id={event.id}
                                   onClick={(e) => handleDeleteEvent(e)}
                                 >
                                   Delete
                                 </Dropdown.Item>
                               </Dropdown.Menu>
                             </Dropdown>
-                            <Overlay
-                              //   show={showPop}
-                              //   target={target}
-                              placement="top"
-                              container={popRef}
-                              containerPadding={20}
-                            >
-                              <Popover id="popover-contained">
-                                <Popover.Header as="h3">
-                                  Are you sure you want to delete this event?
-                                </Popover.Header>
-                                <Popover.Body>
-                                  <p>No go back</p>
-                                  <p>Yes delete</p>
-                                </Popover.Body>
-                              </Popover>
-                            </Overlay>
                           </td>
                         </tr>
                       ))}
