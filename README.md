@@ -25,7 +25,7 @@ Clone the project
 Go to the project directory
 
 ```bash
-  cd A-Movies
+  cd asranna
 ```
 
 Install dependencies
@@ -39,11 +39,6 @@ Start the server
 ```bash
   npm run dev
 ```
-
-## Lessons Learned
-
-using moment js to format time
-javascript logic
 
 ## Features
 
