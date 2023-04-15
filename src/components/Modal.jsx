@@ -21,6 +21,7 @@ const EventContext = createContext();
 
 const initialState = {
   events: [],
+  //   setEvents: null,
 };
 
 const ADD_EVENT = "ADD_EVENT";
@@ -72,9 +73,11 @@ function MyModal(props) {
   const [description, setDescription] = useState("");
   const [title, setTitle] = useState("");
   const [location, setLocation] = useState("");
+  const [url, setUrl] = useState("");
   const [showEvents, setShowEvents] = useState(false);
-
+  const [recurrence, setRecurrence] = useState(null);
   const [editEvent, setEditEvent] = useState("");
+  const [reminder, setReminder] = useState("");
 
   const clearInputs = () => {
     setEditEvent(null);
@@ -83,6 +86,9 @@ function MyModal(props) {
     setEnd("");
     setDescription("");
     setLocation("");
+    setUrl("");
+    setRecurrence(null);
+    resetForm();
   };
 
   const formRef = useRef(null);
@@ -93,12 +99,17 @@ function MyModal(props) {
     e.preventDefault();
     const newEvent = {
       id: uuidv4(),
+
       title,
       start,
       end,
       description,
       location,
+      url,
+      recurrence,
+      reminder,
     };
+    console.log("newEvent=", newEvent);
     dispatch({ type: ADD_EVENT, payload: newEvent });
     clearInputs();
   };
@@ -130,15 +141,26 @@ function MyModal(props) {
       } else {
         const blob = new Blob([value], { type: "text/calendar;charset=utf-8" });
         FileSaver.saveAs(blob, "asranna.ics");
+        console.log("value=", value);
       }
+
       state.events = [];
-      console.log("state.events=", state.events);
+
+      //   console.log("state.events=", state.events);
     }
   };
 
   function handleEditClick() {
     formRef.current.focus();
   }
+
+  const resetForm = () => {
+    const radios = document.querySelectorAll('input[name="recurrence"]');
+    radios.forEach((radio) => {
+      radio.checked = false;
+    });
+    setRecurrence("");
+  };
 
   return (
     <EventContext.Provider value={{ state, dispatch }}>
@@ -229,6 +251,116 @@ function MyModal(props) {
                     : setDescription(e.target.value)
                 }
               />
+              <label htmlFor="recurrence">Repeat</label>
+              <div className="recurrence">
+                <label>
+                  <input
+                    type="radio"
+                    id="recurrence"
+                    name="recurrence"
+                    placeholder="recurrence"
+                    value={editEvent ? editEvent.recurrence : "DAILY"}
+                    onChange={(e) =>
+                      editEvent
+                        ? setEditEvent({
+                            ...editEvent,
+                            recurrence: e.target.value,
+                          })
+                        : setRecurrence(e.target.value)
+                    }
+                  />
+                  Daily
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    id="recurrence"
+                    name="recurrence"
+                    placeholder="recurrence"
+                    value={editEvent ? editEvent.recurrence : "WEEKLY"}
+                    onChange={(e) =>
+                      editEvent
+                        ? setEditEvent({
+                            ...editEvent,
+                            recurrence: e.target.value,
+                          })
+                        : setRecurrence(e.target.value)
+                    }
+                  />
+                  Weekly
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    id="recurrence"
+                    name="recurrence"
+                    placeholder="recurrence"
+                    value={editEvent ? editEvent.recurrence : "MONTHLY"}
+                    onChange={(e) =>
+                      editEvent
+                        ? setEditEvent({
+                            ...editEvent,
+                            recurrence: e.target.value,
+                          })
+                        : setRecurrence(e.target.value)
+                    }
+                  />
+                  Monthly
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    id="recurrence"
+                    name="recurrence"
+                    placeholder="recurrence"
+                    value={editEvent ? editEvent.recurrence : "YEARLY"}
+                    onChange={(e) =>
+                      editEvent
+                        ? setEditEvent({
+                            ...editEvent,
+                            recurrence: e.target.value,
+                          })
+                        : setRecurrence(e.target.value)
+                    }
+                  />
+                  Yearly
+                </label>
+              </div>
+              <label htmlFor="reminder">Set Alert Before Event</label>
+              <label>
+                <input
+                  type="radio"
+                  id="reminder"
+                  name="reminder"
+                  value={editEvent ? editEvent.reminder : "30M"}
+                  onChange={(e) =>
+                    editEvent
+                      ? setEditEvent({
+                          ...editEvent,
+                          reminder: e.target.value,
+                        })
+                      : setReminder(e.target.value)
+                  }
+                />
+                30 mins
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  id="reminder"
+                  name="reminder"
+                  value={editEvent ? editEvent.reminder : "1H0M"}
+                  onChange={(e) =>
+                    editEvent
+                      ? setEditEvent({
+                          ...editEvent,
+                          reminder: e.target.value,
+                        })
+                      : setReminder(e.target.value)
+                  }
+                />
+                30 mins
+              </label>
               <input
                 type="text"
                 id="location"
@@ -241,6 +373,19 @@ function MyModal(props) {
                     : setLocation(e.target.value)
                 }
               />
+              <input
+                type="url"
+                id="url"
+                name="url"
+                placeholder="URL"
+                value={editEvent ? editEvent.url : url || ""}
+                onChange={(e) =>
+                  editEvent
+                    ? setEditEvent({ ...editEvent, url: e.target.value })
+                    : setUrl(e.target.value)
+                }
+              />
+
               <div className="btns">
                 {editEvent ? (
                   <button type="submit">

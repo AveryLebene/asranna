@@ -73,13 +73,23 @@ function formattedEvents(events) {
       endDate.get("minute"),
     ];
     // console.log("Formatting events:", events);
-
+    console.log(event.reminder);
+    const reminder = event.reminder;
     return {
       title: event.title,
       start: startArray,
       end: endArray,
       description: event.description,
       location: event.location,
+      url: event.url,
+      recurrenceRule: "FREQ=" + event.recurrence,
+      alarms: [
+        {
+          action: "audio",
+          description: "Reminder",
+          trigger: { hours: 1, minutes: reminder, before: true },
+        },
+      ],
     };
   });
 }

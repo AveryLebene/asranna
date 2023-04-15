@@ -1,4 +1,4 @@
-Asaana
+Asraana
 
 A calender app built with ics library
 
@@ -42,12 +42,11 @@ Start the server
 
 ## Features
 
-- Add events to calender
+- Add single and multiple events to calender
 - Edit Added Events
 - Delete Events
-- Add single and multiple events to calender
-- Just downloaded and sync to your default calender app
-- Alarms
+
+- Set Alarm for events
 - Set recurring events
 
 ## 🛠 Skills
