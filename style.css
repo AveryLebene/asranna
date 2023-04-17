@@ -47,10 +47,18 @@ body {
 }
 
 .heading button {
-  border-radius: 25px;
+  border-radius: 9px;
   margin-top: 50px;
   padding: 10px 30px;
-  font-family: Poppins, sans-serif;
+  background-color: #429138;
+  border-color: #429138;
+  color: #000;
+  font-family: "LATO";
+}
+
+.heading button:hover {
+  background-color: #ff6000;
+  border: 1px solid #ff6000;
 }
 
 .heading p {
@@ -160,13 +168,26 @@ input::placeholder {
   margin: 0 20px;
 }
 
-/* thead {
-  font-weight: 500;
-} */
+.recurrence,
+.alert {
+  justify-content: space-between;
+  display: flex;
+}
 
-/* button:hover {
-  border: 1px solid #000 !important;
-} */
+.recurrence input,
+.alert input {
+  margin-right: 5px;
+}
+
+.alert {
+  padding: 0;
+  margin-bottom: 0;
+}
+
+.repeat input {
+  width: 100%;
+}
+
 @media only screen and (min-width: 768px) {
   #home {
     height: 70vh;
