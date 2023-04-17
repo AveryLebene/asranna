@@ -12,34 +12,31 @@
 html,
 body {
   min-width: 320px;
-  min-height: 100vh;
+  height: 100vh;
   font-family: Lato, sans-serif;
 }
 
-#home {
+.home {
   display: flex;
   justify-content: center;
   text-align: center;
   align-items: center;
   height: 80vh;
-  margin: 40px 0;
+  margin-top: 60px;
 }
 
 .navbar {
   justify-content: center;
   border-bottom: 1px solid #e7e7e7;
-  box-shadow: 0 -3px #e7e7e7;
+
   z-index: 10;
+  box-shadow: #e7e7e7 0px 0px 4px 0px;
 }
 
 .navbar a {
   font-weight: 900;
   font-size: 30px;
 }
-/*
-.container {
-  height: 75vh;
-} */
 
 .heading {
   text-align: center;
@@ -110,14 +107,10 @@ input {
   border: 1px solid #d2d2d2;
   border-radius: 12px;
   padding: 10px;
-  /* background-color: #d2d2d2; */
+
   margin-bottom: 30px;
   font-weight: 300;
 }
-
-/* label {
-  margin: 10px;
-} */
 
 .new-event button {
   background-color: #3d82fe;
@@ -189,10 +182,6 @@ input::placeholder {
 }
 
 @media only screen and (min-width: 768px) {
-  #home {
-    height: 70vh;
-  }
-
   .btns {
     display: flex;
     justify-content: space-between;

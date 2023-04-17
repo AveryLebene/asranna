@@ -21,7 +21,6 @@ const EventContext = createContext();
 
 const initialState = {
   events: [],
-  //   setEvents: null,
 };
 
 const ADD_EVENT = "ADD_EVENT";
@@ -67,7 +66,8 @@ function reducer(state, action) {
     }
 
     default:
-      throw new Error(`Invalid action type: ${action.type}`);
+      // throw new Error(`Invalid action type: ${action.type}`);
+      return state;
   }
 }
 
@@ -124,12 +124,6 @@ function MyModal(props) {
 
   const handleEditEvent = (e) => {
     e.preventDefault();
-    console.log(
-      "editEvent=",
-      editEvent,
-      "editEvent.recurrence=",
-      editEvent.recurrence
-    );
 
     dispatch({ type: EDIT_EVENT, payload: editEvent });
     clearInputs();
@@ -157,8 +151,8 @@ function MyModal(props) {
         FileSaver.saveAs(blob, "asranna.ics");
         console.log("value=", value);
       }
+      dispatch({ type: "RESET_EVENTS" });
     }
-    dispatch({ type: "RESET_EVENTS" });
   };
 
   function handleEditClick() {

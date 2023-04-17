@@ -13,13 +13,12 @@ const Home = () => {
       <Navbar className="navbar fixed-top bg-white">
         <Navbar.Brand href="/">asranna</Navbar.Brand>
       </Navbar>
-      <div>
-        <div id="home">
+      <div className="home">
+        <div>
           <div className="heading">
             <h2>
               Don&apos;t miss holidays , events and birthdays. Add important
-              dates to asranna, download file and easily sync with your calender
-              or share with your team.
+              dates to asranna, download and sync with your calender.
             </h2>
 
             <Button
