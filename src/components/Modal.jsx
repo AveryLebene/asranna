@@ -206,13 +206,6 @@ function MyModal(props) {
                 required
                 ref={formRef}
               />
-              {/* <datalist id="events">
-                <option value="Birthday">Birthday</option>
-                <option value="Anniversary">Anniversary</option>
-                <option value="Wedding">Wedding</option>
-                <option value="Graduation">Graduation</option>
-                <option value="Meeting">Meeting</option>
-              </datalist> */}
 
               <div className="time">
                 <div className="">
@@ -470,25 +463,12 @@ function MyModal(props) {
                 }
               />
 
-              <div className="btns">
-                {editEvent ? (
-                  <input type="submit" value="Save Changes" />
-                ) : (
-                  <input type="submit" value="Add Event" />
-                )}
-              </div>
-              {/* {state.events && state.events.length > 0 ? (
-                <button type="button" onClick={handleDownload}>
-                  <FiDownload /> Download ics
-                </button>
+              {editEvent ? (
+                <input type="submit" value="Save Changes" />
               ) : (
-                <button>Add To Download</button>
-              )} */}
-              {/* </form>
-          </div> */}
+                <input type="submit" value="Add Event" />
+              )}
 
-              {/* <div className="events-table"> */}
-              {/* {showEvents && ( */}
               <div className="added-events">
                 <Accordion flush>
                   <Accordion.Item eventKey="0">
@@ -504,7 +484,6 @@ function MyModal(props) {
                                 <th>Event Title </th>
                                 <th>Event Date</th>
                                 <th>Start Time</th>
-                                {/* <th>Location</th> */}
                                 <th>Edit</th>
                               </tr>
                             </thead>
@@ -560,32 +539,14 @@ function MyModal(props) {
                           </button>
                         </>
                       )}
-                      {/* {state.events && state.events.length > 0 ? (
-                        <button type="button" onClick={handleDownload}>
-                          <FiDownload /> Download ics
-                        </button>
-                      ) : (
-                        <button>Add To Download</button>
-                      )} */}
                     </Accordion.Body>
                   </Accordion.Item>
                 </Accordion>
               </div>
-              {/* )} */}
-              {/* </div> */}
             </form>
           </div>
         </Modal.Body>
-        <Modal.Footer>
-          {/* <Button onClick={props.onHide}>Close</Button>
-           */}
-          {/* <button
-            onClick={() => setShowEvents(!showEvents)}
-            className="showtable-btn"
-          >
-            {showEvents ? "Hide Events" : "View all Events"}
-          </button> */}
-        </Modal.Footer>
+        <Modal.Footer></Modal.Footer>
       </Modal>
     </EventContext.Provider>
   );
