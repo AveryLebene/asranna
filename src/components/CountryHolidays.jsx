@@ -52,6 +52,7 @@ const CountryHolidays = () => {
         // console.log("holidays=", holidays, holidays[0].country.name);
       } catch (error) {
         console.log(error);
+        alert("No holidays found for " + selectCountryName);
         setLoading(false);
       } finally {
         setLoading(false);
@@ -92,11 +93,10 @@ const CountryHolidays = () => {
           </option>
         ))}
       </select>
-
-      {/* {holidays.length === 0 && ( No holidays found for {inputValue})} */}
-      {holidays?.length < 1 && (
+      {/*
+      {holidays.length === 0 && (
         <p className="mr-2">No holidays found for {selectCountryName} </p>
-      )}
+      )} */}
 
       {loading ? (
         <button>🌀</button>
