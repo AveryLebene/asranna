@@ -4,18 +4,19 @@ import { createEvents } from "ics";
 import FileSaver from "file-saver";
 import { v4 as uuidv4 } from "uuid";
 
-import { IoAddCircleOutline } from "react-icons/io5";
+// import { IoAddCircleOutline } from "react-icons/io5";
 import { IoSettingsOutline } from "react-icons/io5";
 import { FiDownload } from "react-icons/fi";
 import Modal from "react-bootstrap/Modal";
 import Table from "react-bootstrap/Table";
 import Dropdown from "react-bootstrap/Dropdown";
+import Accordion from "react-bootstrap/Accordion";
 
 import {
   formattedEvents,
   formattedDate,
   formattedTime,
-} from "./helpers/DateFormats";
+} from "./helpers/Formats";
 
 const EventContext = createContext();
 
@@ -79,7 +80,7 @@ function MyModal(props) {
   const [title, setTitle] = useState("");
   const [location, setLocation] = useState("");
   const [url, setUrl] = useState("");
-  const [showEvents, setShowEvents] = useState(false);
+  // const [showEvents, setShowEvents] = useState(false);
   const [recurrence, setRecurrence] = useState(null);
   const [editEvent, setEditEvent] = useState("");
   const [reminder, setReminder] = useState("");
@@ -189,28 +190,29 @@ function MyModal(props) {
               className="new-event"
               onSubmit={editEvent ? handleEditEvent : handleAddEvent}
             >
+              <label htmlFor="title">Event Title</label>
               <input
                 type="text"
                 id="title"
                 name="title"
-                list="events"
+                // list="events"
                 value={editEvent ? editEvent.title : title || ""}
                 onChange={(e) => {
                   editEvent
                     ? setEditEvent({ ...editEvent, title: e.target.value })
                     : setTitle(e.target.value);
                 }}
-                placeholder="Event Title"
+                placeholder="Enter Event Title"
                 required
                 ref={formRef}
               />
-              <datalist id="events">
+              {/* <datalist id="events">
                 <option value="Birthday">Birthday</option>
                 <option value="Anniversary">Anniversary</option>
                 <option value="Wedding">Wedding</option>
                 <option value="Graduation">Graduation</option>
                 <option value="Meeting">Meeting</option>
-              </datalist>
+              </datalist> */}
 
               <div className="time">
                 <div className="">
@@ -242,15 +244,16 @@ function MyModal(props) {
                         : setEnd(e.target.value)
                     }
                     placeholder="End Date and Time"
-                    required
+                    // required
                   />
                 </div>
               </div>
+              <label htmlFor="description">Event Description</label>
               <input
                 type="text"
                 id="description"
                 name="description"
-                placeholder="Event Description"
+                placeholder="Enter Description"
                 value={editEvent ? editEvent.description : description || ""}
                 onChange={(e) =>
                   editEvent
@@ -440,12 +443,12 @@ function MyModal(props) {
                   1 hour
                 </label>
               </div>
-
+              <label htmlFor="location">Location of Event</label>
               <input
                 type="text"
                 id="location"
                 name="location"
-                placeholder="Location"
+                placeholder="Enter Location"
                 value={editEvent ? editEvent.location : location || ""}
                 onChange={(e) =>
                   editEvent
@@ -453,11 +456,12 @@ function MyModal(props) {
                     : setLocation(e.target.value)
                 }
               />
+              <label htmlFor="url">Event URL</label>
               <input
                 type="url"
                 id="url"
                 name="url"
-                placeholder="URL"
+                placeholder="Enter URL"
                 value={editEvent ? editEvent.url : url || ""}
                 onChange={(e) =>
                   editEvent
@@ -468,98 +472,119 @@ function MyModal(props) {
 
               <div className="btns">
                 {editEvent ? (
-                  <button type="submit">
-                    <IoAddCircleOutline /> Save Changes
-                  </button>
+                  <input type="submit" value="Save Changes" />
                 ) : (
-                  <button type="submit">
-                    <IoAddCircleOutline /> Add Event
-                  </button>
-                )}
-                {state.events && state.events.length > 0 ? (
-                  <button type="button" onClick={handleDownload}>
-                    <FiDownload /> Download ics
-                  </button>
-                ) : (
-                  <button>Add To Download</button>
+                  <input type="submit" value="Add Event" />
                 )}
               </div>
-            </form>
-          </div>
+              {/* {state.events && state.events.length > 0 ? (
+                <button type="button" onClick={handleDownload}>
+                  <FiDownload /> Download ics
+                </button>
+              ) : (
+                <button>Add To Download</button>
+              )} */}
+              {/* </form>
+          </div> */}
 
-          <div className="events-table">
-            {showEvents && (
+              {/* <div className="events-table"> */}
+              {/* {showEvents && ( */}
               <div className="added-events">
-                {state.events < 1 ? (
-                  <h4> No events added</h4>
-                ) : (
-                  <Table striped>
-                    <thead>
-                      <tr>
-                        <th>Event Title </th>
-                        <th>Event Date</th>
-                        <th>Start Time</th>
-                        {/* <th>Location</th> */}
-                        <th>Edit</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {state.events.map((event, id) => (
-                        <tr key={id}>
-                          <td> {event.title}</td>
-                          <td>{formattedDate(event.start)}</td>
+                <Accordion flush>
+                  <Accordion.Item eventKey="0">
+                    <Accordion.Header>View Events </Accordion.Header>
+                    <Accordion.Body>
+                      {state.events < 1 ? (
+                        <h6> Add to view and download</h6>
+                      ) : (
+                        <>
+                          <Table striped>
+                            <thead>
+                              <tr>
+                                <th>Event Title </th>
+                                <th>Event Date</th>
+                                <th>Start Time</th>
+                                {/* <th>Location</th> */}
+                                <th>Edit</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {state.events.map((event, id) => (
+                                <tr key={id}>
+                                  <td> {event.title}</td>
+                                  <td>{formattedDate(event.start)}</td>
 
-                          <td>{formattedTime(event.start)}</td>
+                                  <td>{formattedTime(event.start)}</td>
 
-                          <td>
-                            <Dropdown>
-                              <Dropdown.Toggle
-                                className="toggle-btn"
-                                id="dropdown-basic"
-                                variant="outline-none"
-                                size="sm"
-                              >
-                                <IoSettingsOutline color="#000" />
-                              </Dropdown.Toggle>
+                                  <td>
+                                    <Dropdown>
+                                      <Dropdown.Toggle
+                                        className=""
+                                        id="dropdown-basic"
+                                        variant="outline-none"
+                                        size="sm"
+                                      >
+                                        <IoSettingsOutline color="#000" />
+                                      </Dropdown.Toggle>
 
-                              <Dropdown.Menu>
-                                <Dropdown.Item
-                                  onClick={() => {
-                                    setEditEvent(event);
+                                      <Dropdown.Menu>
+                                        <Dropdown.Item
+                                          onClick={() => {
+                                            setEditEvent(event);
 
-                                    handleEditClick();
-                                  }}
-                                >
-                                  Edit
-                                </Dropdown.Item>
+                                            handleEditClick();
+                                          }}
+                                        >
+                                          Edit
+                                        </Dropdown.Item>
 
-                                <Dropdown.Item
-                                  id={event.id}
-                                  onClick={(e) => handleDeleteEvent(e)}
-                                >
-                                  Delete
-                                </Dropdown.Item>
-                              </Dropdown.Menu>
-                            </Dropdown>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </Table>
-                )}
+                                        <Dropdown.Item
+                                          id={event.id}
+                                          onClick={(e) => handleDeleteEvent(e)}
+                                        >
+                                          Delete
+                                        </Dropdown.Item>
+                                      </Dropdown.Menu>
+                                    </Dropdown>
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </Table>
+                          <button
+                            type="button"
+                            className="download-btn"
+                            onClick={handleDownload}
+                          >
+                            <FiDownload /> Download ics
+                          </button>
+                        </>
+                      )}
+                      {/* {state.events && state.events.length > 0 ? (
+                        <button type="button" onClick={handleDownload}>
+                          <FiDownload /> Download ics
+                        </button>
+                      ) : (
+                        <button>Add To Download</button>
+                      )} */}
+                    </Accordion.Body>
+                  </Accordion.Item>
+                </Accordion>
               </div>
-            )}
+              {/* )} */}
+              {/* </div> */}
+            </form>
           </div>
         </Modal.Body>
         <Modal.Footer>
           {/* <Button onClick={props.onHide}>Close</Button>
            */}
-          <button
+          {/* <button
             onClick={() => setShowEvents(!showEvents)}
             className="showtable-btn"
           >
             {showEvents ? "Hide Events" : "View all Events"}
-          </button>
+          </button> */}
         </Modal.Footer>
       </Modal>
     </EventContext.Provider>

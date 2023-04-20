@@ -17,7 +17,9 @@ const Footer = () => {
         {" "}
         <span> © {year} </span>
       </p>
-      <p className="font-thin text-center">A PROJECT BY AVERY</p>
+      <p className="font-thin text-center">
+        A PROJECT BY <a href="https://github.com/AveryLebene">AVERY</a>{" "}
+      </p>
     </div>
   );
 };
