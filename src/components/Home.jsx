@@ -4,6 +4,7 @@ import { useState } from "react";
 import Footer from "./Footer";
 
 import MyModal from "./Modal";
+import CountryHolidays from "./CountryHolidays";
 
 const Home = () => {
   const [modalShow, setModalShow] = useState(false);
@@ -13,26 +14,31 @@ const Home = () => {
       <Navbar className="navbar fixed-top bg-white">
         <Navbar.Brand href="/">asranna</Navbar.Brand>
       </Navbar>
-      <div>
-        <div id="home">
-          <div className="heading">
-            <h2>
-              Don&apos;t miss holidays , events and birthdays. Add important
-              dates to asranna, download file and easily sync with your calender
-              or share with your team.
-            </h2>
+      <div className="home">
+        <div className="heading">
+          <h1>
+            Don&apos;t miss holidays , events <br></br>and birthdays.
+          </h1>
+          <p>
+            {" "}
+            Add important dates to asranna, download and sync <br></br>with your
+            calender.
+          </p>
 
-            <Button
-              className="button"
-              size="lg"
-              onClick={() => setModalShow(true)}
-            >
-              Create Event
-            </Button>
-            <MyModal show={modalShow} onHide={() => setModalShow(false)} />
-          </div>
+          <Button
+            className="button"
+            size="lg"
+            onClick={() => setModalShow(true)}
+          >
+            Create Event
+          </Button>
+          <MyModal show={modalShow} onHide={() => setModalShow(false)} />
         </div>
       </div>
+      <div>
+        <CountryHolidays />
+      </div>
+
       <Footer />
     </>
   );

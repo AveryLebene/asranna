@@ -12,34 +12,31 @@
 html,
 body {
   min-width: 320px;
-  min-height: 100vh;
+  height: 100vh;
   font-family: Lato, sans-serif;
 }
 
-#home {
+.home {
   display: flex;
   justify-content: center;
   text-align: center;
   align-items: center;
   height: 80vh;
-  margin: 40px 0;
+  margin-top: 60px;
 }
 
 .navbar {
   justify-content: center;
   border-bottom: 1px solid #e7e7e7;
-  box-shadow: 0 -3px #e7e7e7;
+
   z-index: 10;
+  box-shadow: #e7e7e7 0px 0px 4px 0px;
 }
 
 .navbar a {
   font-weight: 900;
   font-size: 30px;
 }
-/*
-.container {
-  height: 75vh;
-} */
 
 .heading {
   text-align: center;
@@ -52,17 +49,17 @@ body {
   padding: 10px 30px;
   background-color: #429138;
   border-color: #429138;
-  color: #000;
+  color: #ffffff;
   font-family: "LATO";
 }
 
 .heading button:hover {
-  background-color: #ff6000;
-  border: 1px solid #ff6000;
+  background-color: #0e4016;
+  border: 1px solid #0e4016;
 }
 
 .heading p {
-  margin-top: 50px;
+  margin-top: 20px;
 
   font-size: 20px;
   letter-spacing: 0.5px;
@@ -74,10 +71,11 @@ body {
   /* cursor: pointer; */
 }
 
-.heading h2 {
+.heading h1 {
   font-weight: 700;
   letter-spacing: 2px;
-  line-height: 40px;
+  /* line-height: 60px; */
+  font-size: 48px;
 }
 
 .footer {
@@ -96,7 +94,6 @@ body {
 
 form {
   font-family: "Poppins", sans-serif;
-  font-weight: 300;
 }
 
 .new-event {
@@ -108,37 +105,16 @@ form {
 
 input {
   border: 1px solid #d2d2d2;
-  border-radius: 12px;
+  border-radius: 8px;
   padding: 10px;
-  /* background-color: #d2d2d2; */
+
   margin-bottom: 30px;
   font-weight: 300;
 }
 
-/* label {
-  margin: 10px;
-} */
-
 .new-event button {
-  background-color: #3d82fe;
-  border: #3d82fe;
   border-radius: 12px;
-  margin-top: 30px;
-  padding: 10px 25px;
   font-weight: 300;
-}
-
-button[type="submit"] {
-  background-color: #fff;
-  border: none;
-  /* border-radius: 12px; */
-  /* margin-top: 30px; */
-  padding: 10px;
-  margin-right: 15px;
-}
-
-button[type="submit"]:hover {
-  border: 1px solid #000 !important;
 }
 
 input::placeholder {
@@ -147,24 +123,23 @@ input::placeholder {
 }
 
 .added-events {
-  margin-top: 20px;
+  margin-top: 50px;
   font-family: Poppins, sans-serif;
   font-weight: 300;
 }
 
-.showtable-btn {
+/* .showtable-btn {
   text-align: center;
   background-color: rgb(61, 130, 254);
   border: rgb(61, 130, 254);
   color: #fff;
   padding: 10px 20px;
   /* margin: auto; */
-  margin-right: auto;
+/* margin-right: auto;
   border-radius: 12px;
   margin-left: 25px;
-}
-
-.events-table {
+} */
+*/ .events-table {
   margin: 0 20px;
 }
 
@@ -172,6 +147,7 @@ input::placeholder {
 .alert {
   justify-content: space-between;
   display: flex;
+  font-weight: 300;
 }
 
 .recurrence input,
@@ -188,17 +164,89 @@ input::placeholder {
   width: 100%;
 }
 
+.btns {
+  margin-top: 30px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btns input {
+  padding: 10px;
+
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #000;
+  padding: 10px 25px;
+  border: none;
+}
+
+.btns input:hover {
+  background-color: #0e4016;
+  border: 1px solid #0e4016;
+  color: #fff;
+}
+
+.accordion-button {
+  color: #000;
+  background-color: #fff;
+}
+.accordion-button:focus {
+  border-color: #0e4016 !important;
+}
+
+.download-btn {
+  padding: 10px 25px;
+  background-color: #429138;
+  border: #429138;
+  border-radius: 5px;
+  color: #fff;
+  margin-top: 20px;
+}
+
+.download-btn:hover {
+  background-color: #0e4016;
+  border: 1px solid #0e4016;
+}
+
+.accordion {
+  --bs-accordion-active-bg: #fff;
+  --bs-accordion-active-color: #000;
+  --bs-accordion-btn-focus-border-color: #0e4016;
+  --bs-accordion-btn-focus-box-shadow: 0 0 0 0.25px #0e4016;
+}
+
+.countries-input {
+  text-align: center;
+  margin: 8px;
+}
+
+.countries-input select {
+  max-width: 121px;
+  text-align: center;
+  padding: 5px;
+  border: 1px solid #cecece;
+  margin: 0 6px;
+  border-radius: 7px;
+  text-overflow: ellipsis;
+}
+
+.countries-input button {
+  border: none;
+  background-color: #fff;
+}
+
+.countries-input button:hover {
+  color: #429138;
+}
+
+.load {
+  text-align: center;
+}
+
+.footer a {
+  color: #000;
+}
+
 @media only screen and (min-width: 768px) {
-  #home {
-    height: 70vh;
-  }
-
-  .btns {
-    display: flex;
-    justify-content: space-between;
-    /* padding: 0 15%; */
-  }
-
   .showtable-btn {
     /* margin-right: 0; */
     margin: auto;

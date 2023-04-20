@@ -42,12 +42,12 @@ Start the server
 
 ## Features
 
-- Add single and multiple events to calender
-- Edit Added Events
-- Delete Events
-
-- Set Alarm for events
-- Set recurring events
+- Download ics file for all public holidays for a selected country.
+- Add single and multiple events to calender.
+- Edit Added Events.
+- Delete Events.
+- Set Alarm for events.
+- Set recurring events.
 
 ## 🛠 Skills
 
@@ -64,3 +64,5 @@ I'm a frontend web developer with MERN stack interests😃
 @mailto: averylbk@gmail.com
 
 ## Link
+
+https://main.d1bv76t7u8u3k6.amplifyapp.com/
