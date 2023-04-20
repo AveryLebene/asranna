@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { formatCountryHolidays, string_to_slug } from "./helpers/Formats";
 import { createEvents } from "ics";
 import FileSaver from "file-saver";
+import countryFlagEmoji from "country-flag-emoji";
 
 import { BsDownload } from "react-icons/bs";
 
 import year from "./helpers/date";
-import countryFlagEmoji from "country-flag-emoji";
+import { formatCountryHolidays, string_to_slug } from "./helpers/Formats";
 
 const api_key = import.meta.env.VITE_API_KEY;
 const base_url = import.meta.env.VITE_BASE_URL;
@@ -18,17 +18,14 @@ const CountryHolidays = () => {
 
   let countries = countryFlagEmoji.list;
 
-  const defaultCountry = countries.filter(
-    (country) => country.name === "Ghana"
-  );
+  const defaultCountry = countries.find((country) => country.name === "Ghana");
+  //   console.log("defaultCountry=", defaultCountry);
 
   const selectedCountry = countries.find(
     (country) => country.code === inputValue
   );
   const selectCountryName = selectedCountry.name;
   const name_slug = string_to_slug(selectCountryName);
-  //   console.log("country_name=", countryName);
-  //   console.log("selectedCountry=", selectedCountry);
 
   const handleInputChange = (event) => {
     const value = event.target.value;
@@ -49,9 +46,10 @@ const CountryHolidays = () => {
           (holiday) => holiday.locations === "All"
         );
         setHolidays(filteredHolidays);
-        // console.log("holidays=", holidays, holidays[0].country.name);
+        setLoading(false);
       } catch (error) {
         console.log(error);
+
         setLoading(false);
       } finally {
         setLoading(false);
@@ -62,7 +60,7 @@ const CountryHolidays = () => {
 
   const handleDownloadCountryHolidays = async () => {
     const formatted = formatCountryHolidays(holidays);
-    // console.log("formatted=", formatted);
+
     const { error, value } = createEvents(formatted);
     if (error) {
       console.log(error);
@@ -70,7 +68,6 @@ const CountryHolidays = () => {
       const blob = new Blob([value], { type: "text/calendar;charset=utf-8" });
       FileSaver.saveAs(blob, "asranna_" + name_slug + "_holidays.ics");
     }
-    // console.log("value=", value);
   };
 
   return (
@@ -83,8 +80,8 @@ const CountryHolidays = () => {
         onChange={handleInputChange}
         value={inputValue}
       >
-        <option value={defaultCountry[0].code}>
-          {defaultCountry[0].name} {defaultCountry[0].emoji}
+        <option value={defaultCountry.code}>
+          {defaultCountry.name} {defaultCountry.emoji}
         </option>
         {countries.map((country) => (
           <option key={country.code} value={country.code}>
@@ -93,17 +90,18 @@ const CountryHolidays = () => {
         ))}
       </select>
 
-      {/* {holidays.length === 0 && ( No holidays found for {inputValue})} */}
-      {holidays?.length < 1 && (
-        <p className="mr-2">No holidays found for {selectCountryName} </p>
-      )}
-
       {loading ? (
         <button>🌀</button>
       ) : (
-        <button onClick={handleDownloadCountryHolidays}>
-          here <BsDownload />{" "}
-        </button>
+        <>
+          {holidays.length === 0 ? (
+            <p>No holidays found for {selectCountryName}</p>
+          ) : (
+            <button onClick={handleDownloadCountryHolidays}>
+              here <BsDownload />{" "}
+            </button>
+          )}
+        </>
       )}
     </div>
   );

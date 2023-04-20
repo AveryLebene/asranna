@@ -112,11 +112,6 @@ input {
   font-weight: 300;
 }
 
-.new-event button {
-  border-radius: 12px;
-  font-weight: 300;
-}
-
 input::placeholder {
   color: #000;
   font-weight: 300;
@@ -128,18 +123,7 @@ input::placeholder {
   font-weight: 300;
 }
 
-/* .showtable-btn {
-  text-align: center;
-  background-color: rgb(61, 130, 254);
-  border: rgb(61, 130, 254);
-  color: #fff;
-  padding: 10px 20px;
-  /* margin: auto; */
-/* margin-right: auto;
-  border-radius: 12px;
-  margin-left: 25px;
-} */
-*/ .events-table {
+.events-table {
   margin: 0 20px;
 }
 
@@ -194,10 +178,10 @@ input::placeholder {
 }
 
 .download-btn {
-  padding: 10px 25px;
+  padding: 10px 15px;
   background-color: #429138;
   border: #429138;
-  border-radius: 5px;
+  border-radius: 4px;
   color: #fff;
   margin-top: 20px;
 }
@@ -244,6 +228,33 @@ input::placeholder {
 
 .footer a {
   color: #000;
+}
+
+.add-btn {
+  max-width: 150px;
+  border: none;
+  margin-left: auto;
+}
+
+.add-btn:hover {
+  background-color: #0e4016;
+  border: 1px solid #0e4016;
+  color: #fff;
+}
+
+.toggle-btn {
+  border: none;
+}
+
+.toggle-btn:hover {
+  background-color: #fff;
+  border: 1px solid #0e4016;
+  border-radius: 0;
+  /* padding: 10px 20px; */
+}
+
+.t-body {
+  vertical-align: middle !important;
 }
 
 @media only screen and (min-width: 768px) {

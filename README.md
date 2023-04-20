@@ -1,6 +1,6 @@
 Asraana
 
-A calender app built with ics library
+A calender app built with ics library and calendarific holiday api
 
 ## Authors
 
