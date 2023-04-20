@@ -466,7 +466,7 @@ function MyModal(props) {
               {editEvent ? (
                 <input type="submit" value="Save Changes" />
               ) : (
-                <input type="submit" value="Add Event" />
+                <input type="submit" value="Add Event" className="add-btn" />
               )}
 
               <div className="added-events">
@@ -487,7 +487,7 @@ function MyModal(props) {
                                 <th>Edit</th>
                               </tr>
                             </thead>
-                            <tbody>
+                            <tbody className="t-body">
                               {state.events.map((event, id) => (
                                 <tr key={id}>
                                   <td> {event.title}</td>
@@ -498,7 +498,7 @@ function MyModal(props) {
                                   <td>
                                     <Dropdown>
                                       <Dropdown.Toggle
-                                        className=""
+                                        className="toggle-btn"
                                         id="dropdown-basic"
                                         variant="outline-none"
                                         size="sm"

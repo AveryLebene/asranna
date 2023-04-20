@@ -51,7 +51,6 @@ const CountryHolidays = () => {
         console.log(error);
 
         setLoading(false);
-        // alert("No holidays found for " + selectCountryName);
       } finally {
         setLoading(false);
       }
