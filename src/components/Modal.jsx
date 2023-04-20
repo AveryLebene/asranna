@@ -186,289 +186,290 @@ function MyModal(props) {
         </Modal.Header>
         <Modal.Body>
           <div>
-            <form
-              className="new-event"
-              onSubmit={editEvent ? handleEditEvent : handleAddEvent}
-            >
-              <label htmlFor="title">Event Title</label>
-              <input
-                type="text"
-                id="title"
-                name="title"
-                // list="events"
-                value={editEvent ? editEvent.title : title || ""}
-                onChange={(e) => {
-                  editEvent
-                    ? setEditEvent({ ...editEvent, title: e.target.value })
-                    : setTitle(e.target.value);
-                }}
-                placeholder="Enter Event Title"
-                required
-                ref={formRef}
-              />
-
-              <div className="time">
-                <div className="">
-                  <label htmlFor="start">Start Date and Time</label>
-                  <input
-                    type="datetime-local"
-                    id="start"
-                    name="start"
-                    value={editEvent ? editEvent.start : start || ""}
-                    onChange={(e) =>
-                      editEvent
-                        ? setEditEvent({ ...editEvent, start: e.target.value })
-                        : setStart(e.target.value)
-                    }
-                    placeholder="Start Time"
-                    required
-                  />
-                </div>
-                <div>
-                  <label htmlFor="start">End Date and Time</label>
-                  <input
-                    type="datetime-local"
-                    id="end"
-                    name="end"
-                    value={editEvent ? editEvent.end : end || ""}
-                    onChange={(e) =>
-                      editEvent
-                        ? setEditEvent({ ...editEvent, end: e.target.value })
-                        : setEnd(e.target.value)
-                    }
-                    placeholder="End Date and Time"
-                    // required
-                  />
-                </div>
-              </div>
-              <label htmlFor="description">Event Description</label>
-              <input
-                type="text"
-                id="description"
-                name="description"
-                placeholder="Enter Description"
-                value={editEvent ? editEvent.description : description || ""}
-                onChange={(e) =>
-                  editEvent
-                    ? setEditEvent({
-                        ...editEvent,
-                        description: e.target.value,
-                      })
-                    : setDescription(e.target.value)
-                }
-              />
-              <label htmlFor="recurrence">Repeat</label>
-              <div className="recurrence">
-                <label>
-                  <input
-                    type="radio"
-                    id="recurrence"
-                    name="recurrence"
-                    checked={
-                      (editEvent
-                        ? editEvent.recurrence === "DAILY"
-                        : recurrence === "DAILY") || ""
-                    }
-                    value="DAILY"
-                    onChange={(e) =>
-                      editEvent
-                        ? setEditEvent({
-                            ...editEvent,
-                            recurrence: e.target.value,
-                          })
-                        : setRecurrence(e.target.value)
-                    }
-                  />
-                  Daily
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    id="recurrence"
-                    name="recurrence"
-                    placeholder="recurrence"
-                    checked={
-                      (editEvent
-                        ? editEvent.recurrence === "WEEKLY"
-                        : recurrence === "WEEKLY") || ""
-                    }
-                    value="WEEKLY"
-                    onChange={(e) =>
-                      editEvent
-                        ? setEditEvent({
-                            ...editEvent,
-                            recurrence: e.target.value,
-                          })
-                        : setRecurrence(e.target.value)
-                    }
-                  />
-                  Weekly
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    id="recurrence"
-                    name="recurrence"
-                    checked={
-                      (editEvent
-                        ? editEvent.recurrence === "MONTHLY"
-                        : recurrence === "MONTHLY") || ""
-                    }
-                    value="MONTHLY"
-                    onChange={(e) =>
-                      editEvent
-                        ? setEditEvent({
-                            ...editEvent,
-                            recurrence: e.target.value,
-                          })
-                        : setRecurrence(e.target.value)
-                    }
-                  />
-                  Monthly
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    id="recurrence"
-                    name="recurrence"
-                    checked={
-                      (editEvent
-                        ? editEvent.recurrence === "YEARLY"
-                        : recurrence === "YEARLY") || ""
-                    }
-                    value="YEARLY"
-                    onChange={(e) =>
-                      editEvent
-                        ? setEditEvent({
-                            ...editEvent,
-                            recurrence: e.target.value,
-                          })
-                        : setRecurrence(e.target.value)
-                    }
-                  />
-                  Yearly
-                </label>
-              </div>
-              <label htmlFor="repeat">Number of repeat time</label>
-              <div className="repeat">
-                <label htmlFor="repeat"> </label>
+            <form onSubmit={editEvent ? handleEditEvent : handleAddEvent}>
+              <div className="new-event">
+                <label htmlFor="title">Event Title</label>
                 <input
-                  type="number"
-                  id="repeat"
-                  name="repeat"
-                  value={editEvent ? editEvent.repeat : repeat || ""}
+                  type="text"
+                  id="title"
+                  name="title"
+                  // list="events"
+                  value={editEvent ? editEvent.title : title || ""}
+                  onChange={(e) => {
+                    editEvent
+                      ? setEditEvent({ ...editEvent, title: e.target.value })
+                      : setTitle(e.target.value);
+                  }}
+                  placeholder="Enter Event Title"
+                  required
+                  ref={formRef}
+                />
+
+                <div className="time">
+                  <div className="">
+                    <label htmlFor="start">Start Date and Time</label>
+                    <input
+                      type="datetime-local"
+                      id="start"
+                      name="start"
+                      value={editEvent ? editEvent.start : start || ""}
+                      onChange={(e) =>
+                        editEvent
+                          ? setEditEvent({
+                              ...editEvent,
+                              start: e.target.value,
+                            })
+                          : setStart(e.target.value)
+                      }
+                      placeholder="Start Time"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="start">End Date and Time</label>
+                    <input
+                      type="datetime-local"
+                      id="end"
+                      name="end"
+                      value={editEvent ? editEvent.end : end || ""}
+                      onChange={(e) =>
+                        editEvent
+                          ? setEditEvent({ ...editEvent, end: e.target.value })
+                          : setEnd(e.target.value)
+                      }
+                      placeholder="End Date and Time"
+                      // required
+                    />
+                  </div>
+                </div>
+                <label htmlFor="description">Event Description</label>
+                <input
+                  type="text"
+                  id="description"
+                  name="description"
+                  placeholder="Enter Description"
+                  value={editEvent ? editEvent.description : description || ""}
                   onChange={(e) =>
                     editEvent
                       ? setEditEvent({
                           ...editEvent,
-                          repeat: e.target.value,
+                          description: e.target.value,
                         })
-                      : setRepeat(e.target.value)
+                      : setDescription(e.target.value)
                   }
                 />
-              </div>
-              <label htmlFor="reminder">Set Alert Before Event</label>
-              <div className="alert">
-                <label>
+                <label htmlFor="recurrence">Repeat</label>
+                <div className="recurrence">
+                  <label>
+                    <input
+                      type="radio"
+                      id="recurrence"
+                      name="recurrence"
+                      checked={
+                        (editEvent
+                          ? editEvent.recurrence === "DAILY"
+                          : recurrence === "DAILY") || ""
+                      }
+                      value="DAILY"
+                      onChange={(e) =>
+                        editEvent
+                          ? setEditEvent({
+                              ...editEvent,
+                              recurrence: e.target.value,
+                            })
+                          : setRecurrence(e.target.value)
+                      }
+                    />
+                    Daily
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      id="recurrence"
+                      name="recurrence"
+                      placeholder="recurrence"
+                      checked={
+                        (editEvent
+                          ? editEvent.recurrence === "WEEKLY"
+                          : recurrence === "WEEKLY") || ""
+                      }
+                      value="WEEKLY"
+                      onChange={(e) =>
+                        editEvent
+                          ? setEditEvent({
+                              ...editEvent,
+                              recurrence: e.target.value,
+                            })
+                          : setRecurrence(e.target.value)
+                      }
+                    />
+                    Weekly
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      id="recurrence"
+                      name="recurrence"
+                      checked={
+                        (editEvent
+                          ? editEvent.recurrence === "MONTHLY"
+                          : recurrence === "MONTHLY") || ""
+                      }
+                      value="MONTHLY"
+                      onChange={(e) =>
+                        editEvent
+                          ? setEditEvent({
+                              ...editEvent,
+                              recurrence: e.target.value,
+                            })
+                          : setRecurrence(e.target.value)
+                      }
+                    />
+                    Monthly
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      id="recurrence"
+                      name="recurrence"
+                      checked={
+                        (editEvent
+                          ? editEvent.recurrence === "YEARLY"
+                          : recurrence === "YEARLY") || ""
+                      }
+                      value="YEARLY"
+                      onChange={(e) =>
+                        editEvent
+                          ? setEditEvent({
+                              ...editEvent,
+                              recurrence: e.target.value,
+                            })
+                          : setRecurrence(e.target.value)
+                      }
+                    />
+                    Yearly
+                  </label>
+                </div>
+                <label htmlFor="repeat">Number of repeat time</label>
+                <div className="repeat">
+                  <label htmlFor="repeat"> </label>
                   <input
-                    type="radio"
-                    id="reminder"
-                    name="reminder"
-                    value="15M"
-                    checked={
-                      (editEvent
-                        ? editEvent.reminder === "15M"
-                        : reminder === "15M") || ""
-                    }
+                    type="number"
+                    id="repeat"
+                    name="repeat"
+                    value={editEvent ? editEvent.repeat : repeat || ""}
                     onChange={(e) =>
                       editEvent
                         ? setEditEvent({
                             ...editEvent,
-                            reminder: e.target.value,
+                            repeat: e.target.value,
                           })
-                        : setReminder(e.target.value)
+                        : setRepeat(e.target.value)
                     }
                   />
-                  15 mins
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    id="reminder"
-                    name="reminder"
-                    checked={
-                      (editEvent
-                        ? editEvent.reminder === "30M"
-                        : reminder === "30M") || ""
-                    }
-                    value="30M"
-                    onChange={(e) =>
-                      editEvent
-                        ? setEditEvent({
-                            ...editEvent,
-                            reminder: e.target.value,
-                          })
-                        : setReminder(e.target.value)
-                    }
-                  />
-                  30 mins
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    id="reminder"
-                    name="reminder"
-                    checked={
-                      (editEvent
-                        ? editEvent.reminder === "1H"
-                        : reminder === "1H") || ""
-                    }
-                    value="1H"
-                    onChange={(e) =>
-                      editEvent
-                        ? setEditEvent({
-                            ...editEvent,
-                            reminder: e.target.value,
-                          })
-                        : setReminder(e.target.value)
-                    }
-                  />
-                  1 hour
-                </label>
-              </div>
-              <label htmlFor="location">Location of Event</label>
-              <input
-                type="text"
-                id="location"
-                name="location"
-                placeholder="Enter Location"
-                value={editEvent ? editEvent.location : location || ""}
-                onChange={(e) =>
-                  editEvent
-                    ? setEditEvent({ ...editEvent, location: e.target.value })
-                    : setLocation(e.target.value)
-                }
-              />
-              <label htmlFor="url">Event URL</label>
-              <input
-                type="url"
-                id="url"
-                name="url"
-                placeholder="Enter URL"
-                value={editEvent ? editEvent.url : url || ""}
-                onChange={(e) =>
-                  editEvent
-                    ? setEditEvent({ ...editEvent, url: e.target.value })
-                    : setUrl(e.target.value)
-                }
-              />
+                </div>
+                <label htmlFor="reminder">Set Alert Before Event</label>
+                <div className="alert">
+                  <label>
+                    <input
+                      type="radio"
+                      id="reminder"
+                      name="reminder"
+                      value="15M"
+                      checked={
+                        (editEvent
+                          ? editEvent.reminder === "15M"
+                          : reminder === "15M") || ""
+                      }
+                      onChange={(e) =>
+                        editEvent
+                          ? setEditEvent({
+                              ...editEvent,
+                              reminder: e.target.value,
+                            })
+                          : setReminder(e.target.value)
+                      }
+                    />
+                    15 mins
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      id="reminder"
+                      name="reminder"
+                      checked={
+                        (editEvent
+                          ? editEvent.reminder === "30M"
+                          : reminder === "30M") || ""
+                      }
+                      value="30M"
+                      onChange={(e) =>
+                        editEvent
+                          ? setEditEvent({
+                              ...editEvent,
+                              reminder: e.target.value,
+                            })
+                          : setReminder(e.target.value)
+                      }
+                    />
+                    30 mins
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      id="reminder"
+                      name="reminder"
+                      checked={
+                        (editEvent
+                          ? editEvent.reminder === "1H"
+                          : reminder === "1H") || ""
+                      }
+                      value="1H"
+                      onChange={(e) =>
+                        editEvent
+                          ? setEditEvent({
+                              ...editEvent,
+                              reminder: e.target.value,
+                            })
+                          : setReminder(e.target.value)
+                      }
+                    />
+                    1 hour
+                  </label>
+                </div>
+                <label htmlFor="location">Location of Event</label>
+                <input
+                  type="text"
+                  id="location"
+                  name="location"
+                  placeholder="Enter Location"
+                  value={editEvent ? editEvent.location : location || ""}
+                  onChange={(e) =>
+                    editEvent
+                      ? setEditEvent({ ...editEvent, location: e.target.value })
+                      : setLocation(e.target.value)
+                  }
+                />
+                <label htmlFor="url">Event URL</label>
+                <input
+                  type="url"
+                  id="url"
+                  name="url"
+                  placeholder="Enter URL"
+                  value={editEvent ? editEvent.url : url || ""}
+                  onChange={(e) =>
+                    editEvent
+                      ? setEditEvent({ ...editEvent, url: e.target.value })
+                      : setUrl(e.target.value)
+                  }
+                />
 
-              {editEvent ? (
-                <input type="submit" value="Save Changes" />
-              ) : (
-                <input type="submit" value="Add Event" className="add-btn" />
-              )}
-
+                {editEvent ? (
+                  <input type="submit" value="Save Changes" />
+                ) : (
+                  <input type="submit" value="Add Event" className="add-btn" />
+                )}
+              </div>
               <div className="added-events">
                 <Accordion flush>
                   <Accordion.Item eventKey="0">
