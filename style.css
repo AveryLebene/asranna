@@ -210,6 +210,8 @@ input::placeholder {
   text-align: center;
   margin: 8px;
   padding-bottom: 5px;
+  /* font-size: 18px; */
+  margin-top: 30px;
 }
 
 .countries-input select {
@@ -249,6 +251,7 @@ input::placeholder {
   max-width: 150px;
   border: none;
   margin-left: auto;
+  border-radius: 6px;
 }
 
 .add-btn:hover {
@@ -271,6 +274,16 @@ input::placeholder {
   vertical-align: middle !important;
 }
 
+.loader {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 @media only screen and (min-width: 768px) {
   .showtable-btn {
     margin: auto;
@@ -284,6 +297,9 @@ input::placeholder {
   }
   .added-events {
     padding: 0 20px;
+  }
+  .countries-input {
+    font-size: 18px;
   }
 }
 
