@@ -12,7 +12,6 @@
 html,
 body {
   min-width: 320px;
-
   font-family: Lato, sans-serif;
 }
 
@@ -34,7 +33,7 @@ body {
 
 .navbar a {
   font-weight: 900;
-  font-size: 30px;
+  font-size: 2.5rem;
 }
 
 .heading {
@@ -45,11 +44,12 @@ body {
 .heading button {
   border-radius: 9px;
   margin-top: 50px;
-  padding: 10px 30px;
+  padding: 7px 15px;
   background-color: #429138;
   border-color: #429138;
   color: #ffffff;
   font-family: "LATO";
+  font-size: 18px;
 }
 
 .heading button:hover {
@@ -59,22 +59,16 @@ body {
 
 .heading p {
   margin-top: 20px;
-
-  font-size: 20px;
+  font-size: 18px;
   letter-spacing: 0.5px;
-}
-
-.heading p a {
-  text-decoration: underline;
-  color: blue;
-  /* cursor: pointer; */
 }
 
 .heading h1 {
   font-weight: 700;
-  letter-spacing: 2px;
-  /* line-height: 60px; */
-  font-size: 48px;
+  letter-spacing: 0.5px;
+  line-height: 2.5rem;
+  font-size: 2.2rem;
+  margin-bottom: 20px;
 }
 
 .footer {
@@ -86,7 +80,6 @@ body {
 .socials {
   display: flex;
   justify-content: flex-end;
-
   gap: 20px;
   padding: 10px 40px 15px 0;
 }
@@ -278,6 +271,10 @@ input::placeholder {
   animation: spin 1s linear infinite;
 }
 
+input[type="radio"] {
+  height: 0.7rem;
+  width: 0.7rem;
+}
 @keyframes spin {
   to {
     transform: rotate(360deg);
@@ -300,6 +297,21 @@ input::placeholder {
   }
   .countries-input {
     font-size: 18px;
+  }
+  .heading h1 {
+    font-size: 3rem;
+    letter-spacing: 1px;
+    line-height: 3.1rem;
+  }
+  .heading p {
+    font-size: 1.5rem;
+  }
+  .heading button {
+    padding: 10px 20px;
+  }
+  input[type="radio"] {
+    height: 0.8rem;
+    width: 0.8rem;
   }
 }
 

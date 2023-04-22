@@ -17,7 +17,7 @@ const Home = () => {
       <div className="home">
         <div className="heading">
           <h1>
-            Don&apos;t miss holidays , events <br></br>and birthdays.
+            Don&apos;t miss holidays, events <br></br>and birthdays.
           </h1>
           <p>
             {" "}
