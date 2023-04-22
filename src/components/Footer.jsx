@@ -7,10 +7,10 @@ const Footer = () => {
     <div className="footer">
       <div className=" socials ">
         <a href="https://github.com/AveryLebene">
-          <AiFillGithub className=" " size={24} color="#d1d1d1" />
+          <AiFillGithub className=" " size={20} color="#d1d1d1" />
         </a>
         <a href="https://www.linkedin.com/in/avery-lebene-korto-046293253/">
-          <AiFillLinkedin className="" size={24} color="#d1d1d1" />
+          <AiFillLinkedin className="" size={20} color="#d1d1d1" />
         </a>
       </div>
       <p className="footnote ">
