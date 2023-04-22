@@ -465,7 +465,11 @@ function MyModal(props) {
                 />
 
                 {editEvent ? (
-                  <input type="submit" value="Save Changes" />
+                  <input
+                    type="submit"
+                    value="Save Changes"
+                    className="add-btn"
+                  />
                 ) : (
                   <input type="submit" value="Add Event" className="add-btn" />
                 )}

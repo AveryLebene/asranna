@@ -16,16 +16,15 @@ const CountryHolidays = () => {
   const [loading, setLoading] = useState(true);
   const [inputValue, setInputValue] = useState("GH");
 
-  let countries = countryFlagEmoji.list;
+  const countries = countryFlagEmoji.list;
 
   const defaultCountry = countries.find((country) => country.name === "Ghana");
-  //   console.log("defaultCountry=", defaultCountry);
 
-  const selectedCountry = countries.find(
+  let selectedCountry = countries.find(
     (country) => country.code === inputValue
   );
-  const selectCountryName = selectedCountry.name;
-  const name_slug = string_to_slug(selectCountryName);
+  let selectCountryName = selectedCountry.name;
+  let name_slug = string_to_slug(selectCountryName);
 
   const handleInputChange = (event) => {
     const value = event.target.value;
@@ -60,13 +59,16 @@ const CountryHolidays = () => {
 
   const handleDownloadCountryHolidays = async () => {
     const formatted = formatCountryHolidays(holidays);
-
-    const { error, value } = createEvents(formatted);
-    if (error) {
-      console.log(error);
+    if (formatted.length > 0) {
+      const { error, value } = createEvents(formatted);
+      if (error) {
+        console.log(error);
+      } else {
+        const blob = new Blob([value], { type: "text/calendar;charset=utf-8" });
+        FileSaver.saveAs(blob, "asranna_" + name_slug + "_holidays.ics");
+      }
     } else {
-      const blob = new Blob([value], { type: "text/calendar;charset=utf-8" });
-      FileSaver.saveAs(blob, "asranna_" + name_slug + "_holidays.ics");
+      alert("No holidays found for " + selectCountryName);
     }
   };
 
@@ -78,11 +80,8 @@ const CountryHolidays = () => {
         name="countries"
         id="countries"
         onChange={handleInputChange}
-        value={inputValue}
+        value={inputValue || defaultCountry.code}
       >
-        <option value={defaultCountry.code}>
-          {defaultCountry.name} {defaultCountry.emoji}
-        </option>
         {countries.map((country) => (
           <option key={country.code} value={country.code}>
             {country.name} {country.emoji}
@@ -91,17 +90,11 @@ const CountryHolidays = () => {
       </select>
 
       {loading ? (
-        <button>🌀</button>
+        <button className="loader">🌀</button>
       ) : (
-        <>
-          {holidays.length === 0 ? (
-            <p>No holidays found for {selectCountryName}</p>
-          ) : (
-            <button onClick={handleDownloadCountryHolidays}>
-              here <BsDownload />{" "}
-            </button>
-          )}
-        </>
+        <button onClick={handleDownloadCountryHolidays}>
+          here <BsDownload />{" "}
+        </button>
       )}
     </div>
   );
